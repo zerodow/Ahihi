@@ -4,7 +4,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Account from './Account';
 import Data from './Data';
-import History from './History'
+import User from './User'
 import { connect } from 'react-redux'
 
 class Main extends Component {
@@ -18,12 +18,12 @@ class Main extends Component {
                     <Tabs value={this.state.value} onChange={(event, value) => this.setState({ value })}>
                         <Tab label='Account' />
                         <Tab disabled={this.props.loginSuccess} label='Data' />
-                        <Tab disabled={this.props.loginSuccess} label='History' />
+                        <Tab disabled={this.props.loginSuccess} label='User' />
                     </Tabs>
                 </AppBar>
                 {this.state.value === 0 && <Account />}
                 {this.state.value === 1 && <Data />}
-                {this.state.value === 2 && <History />}
+                {this.state.value === 2 && <User />}
             </div>
         );
     }

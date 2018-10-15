@@ -1,4 +1,8 @@
 .account {
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  /* background-color: red; */
     /* background-color: brown; */
     /* margin-left: 2in */
   }
