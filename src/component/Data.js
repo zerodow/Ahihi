@@ -34,6 +34,33 @@ const data = {
 }
 
 class Data extends Component {
+    state={
+        data: data
+    }
+    /**
+     * Hàm này sẽ chạy sau khi render giao diện lần đầu tiên 
+     */
+    // componentDidMount() {
+    //     fetch('link', {//link api
+    //         // method: 'POST', //method
+    //         // headers: { // config header
+    //         //     Accept: 'application/json',
+    //         //     'Content-Type': 'application/json',
+    //         // },
+    //         // body: JSON.stringify({ //config params
+    //         //     firstParam: 'yourValue',
+    //         //     secondParam: 'yourOtherValue',
+    //         // }),
+    //     })
+    //         .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
+    //         .then(res => { // res chính là dữ liệu đã được chuyển sang json
+    //             // this.setState({
+    //             //     data: res // dữ liệu trả về sẽ được gán cho state có tên data để hiển thị lên list
+    //             // })
+    //         })
+    //         .catch(error => console.log(error))
+    // }
+
     render() {
         return (
             <div>
@@ -53,7 +80,7 @@ class Data extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            {data.sensors_data.map(row => {
+                            {this.state.data.sensors_data.map(row => {
                                 return (
                                     <TableRow>
                                         <TableCell>{row.sensor_id}</TableCell>
