@@ -9,24 +9,42 @@ class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: ''
+            username: 'admin',
+            password: 'admin'
         };
     }
 
-    componentDidMount(){
-        //this.login();
+    componentDidMount() {
+
     }
 
     login = () => {
-        if (this.state.username === this.props.username && this.state.password === this.props.password) {
-            //alert('login success')
-            this.props.dispatch({
-                type: 'LOGINSUCCESS',
-            })
-        } else {
-            alert('login failed')
+        var obj = {
+            account: this.state.username,
+            password: this.state.password
         }
+        fetch('https://farmproject.herokuapp.com/login', {//link api
+            method: 'POST', //method
+            headers: { // config header
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(obj),
+        })
+            .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
+            .then(res => { // res chính là dữ liệu đã được chuyển sang json
+                console.log(res)
+                if(res.loginCode === 0) {
+                    this.props.dispatch({
+                        type:'LOGINSUCCESS'
+                    })
+                } else if(res.loginCode === 1){
+                    alert('Sai mật khẩu !! Vui lòng thử lại')
+                } else {
+                    alert('Tài khoản không tồn tại')
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     render() {
