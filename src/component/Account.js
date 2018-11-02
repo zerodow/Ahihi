@@ -9,13 +9,13 @@ class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'admin',
-            password: 'admin'
+            username: '',
+            password: ''
         };
     }
 
-    componentDidMount() {
-
+    componentDidMount(){
+        
     }
 
     login = () => {
