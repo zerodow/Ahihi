@@ -1,0 +1,1 @@
+export const URL_GET_ALL_USER = 'http://localhost:3001/get-all-users'

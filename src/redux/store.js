@@ -1,7 +1,8 @@
 const intialState = {
     username: 'admin',
     password: 'admin',
-    loginSuccess: true
+    loginSuccess: true,
+    userInfo: {}
 }
 
 export const reducer = (state = intialState, action) => {
@@ -9,7 +10,8 @@ export const reducer = (state = intialState, action) => {
         case 'LOGINSUCCESS': {
             return {
                 ...state,
-                loginSuccess: false
+                loginSuccess: false,
+                userInfo: action.user
             }
         }
 

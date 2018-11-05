@@ -11,6 +11,7 @@ class Main extends Component {
     state = {
         value: 0
     }
+    
     render() {
         return (
             <div>

@@ -18,6 +18,9 @@ class Account extends Component {
 
     }
 
+    // get = () => {
+    //     console.log(this.props.user)
+    // }
     login = () => {
         var obj = {
             account: this.state.username,
@@ -33,12 +36,13 @@ class Account extends Component {
         })
             .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
             .then(res => { // res chính là dữ liệu đã được chuyển sang json
-                console.log(res)
-                if(res.loginCode === 0) {
+                // console.log(res)
+                if (res.loginCode === 0) {
                     this.props.dispatch({
-                        type:'LOGINSUCCESS'
+                        type: 'LOGINSUCCESS',
+                        user: res
                     })
-                } else if(res.loginCode === 1){
+                } else if (res.loginCode === 1) {
                     alert('Sai mật khẩu !! Vui lòng thử lại')
                 } else {
                     alert('Tài khoản không tồn tại')
@@ -86,7 +90,8 @@ class Account extends Component {
 const mapStateToProps = (state) => {
     return {
         username: state.username,
-        password: state.password
+        password: state.password,
+        user: state.userInfo
     }
 }
 
