@@ -15,7 +15,7 @@ class Account extends Component {
     }
 
     componentDidMount(){
-        
+        //this.login();
     }
 
     login = () => {
