@@ -14,13 +14,10 @@ class Account extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         //this.login();
     }
 
-    // get = () => {
-    //     console.log(this.props.user)
-    // }
     login = () => {
         var obj = {
             account: this.state.username,
@@ -37,6 +34,7 @@ class Account extends Component {
             .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
             .then(res => { // res chính là dữ liệu đã được chuyển sang json
                 // console.log(res)
+                console.log(res)
                 if (res.loginCode === 0) {
                     this.props.dispatch({
                         type: 'LOGINSUCCESS',
@@ -53,36 +51,50 @@ class Account extends Component {
 
     render() {
         return (
-            <div className="account">
-                <FormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <h1>Login</h1>
-                </FormGroup>
-                <FormGroup>
-                    <FormGroup row
-                        style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <h3>Username</h3>
-                        <Input
-                            required={true}
-                            placeholder='Tên đăng nhập'
-                            style={{ marginLeft: 20, height: '20%' }}
-                            onChange={(event) => this.setState({ username: event.target.value })} />
+            <FormGroup style={{
+                backgroundSize: 'cover',
+                overflow: 'hidden',
+                backgroundColor: '#328ACB',
+                height: window.innerHeight,
+                width: window.innerWidth,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <FormGroup style={{
+                    backgroundColor: 'white',
+                    height: '50%',
+                    width: '30%',
+                }}>
+                    <FormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <h1>Login</h1>
                     </FormGroup>
-                    <FormGroup row
-                        style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <h3>Password</h3>
-                        <Input
-                            required={true}
-                            placeholder='Mật khẩu'
-                            style={{ marginLeft: 20 }}
-                            onChange={(event) => this.setState({ password: event.target.value })} />
+                    <FormGroup>
+                        <FormGroup row
+                            style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <h3>Username</h3>
+                            <Input
+                                required={true}
+                                placeholder='Tên đăng nhập'
+                                style={{ marginLeft: 20, height: '20%' }}
+                                onChange={(event) => this.setState({ username: event.target.value })} />
+                        </FormGroup>
+                        <FormGroup row
+                            style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <h3>Password</h3>
+                            <Input
+                                required={true}
+                                placeholder='Mật khẩu'
+                                style={{ marginLeft: 20 }}
+                                onChange={(event) => this.setState({ password: event.target.value })} />
+                        </FormGroup>
+                    </FormGroup>
+                    <FormGroup style={{ justifyContent: 'center', alignItems: 'center', }}>
+                        <Button style={{ height: 50, width: 100, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }} text={"Login"} onClick={this.login}>
+                            <h4>button</h4>
+                        </Button>
                     </FormGroup>
                 </FormGroup>
-                <FormGroup style={{ justifyContent: 'center', alignItems: 'center', }}>
-                    <Button style={{ height: 50, width: 100, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }} text={"Login"} onClick={this.login}>
-                        <h4>button</h4>
-                    </Button>
-                </FormGroup>
-            </div>
+            </FormGroup>
         );
     }
 }

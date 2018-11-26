@@ -11,11 +11,11 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Main</Link>
-          </li>
-          {/* <li>
+        {/* <ul> */}
+        {/* <li> */}
+        {/* <Link to="/">Main</Link> */}
+        {/* </li> */}
+        {/* <li>
           <Link to="/homepage">HomePage</Link>
         </li>
         <li>
@@ -27,7 +27,7 @@ const App = () => (
         <li>
           <Link to="/transaction">Transaction</Link>
         </li> */}
-        </ul>
+        {/* </ul> */}
 
         {/* <hr /> */}
 

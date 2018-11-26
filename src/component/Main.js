@@ -11,22 +11,31 @@ class Main extends Component {
     state = {
         value: 0
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.loginSuccess) {
+            this.setState({
+                value: 1
+            })
+        }
+    }
+
     render() {
-        return (
-            <div>
+        if (this.state.value === 0) {
+            return <Account />
+        } else {
+            return (
                 <AppBar>
                     <Tabs value={this.state.value} onChange={(event, value) => this.setState({ value })}>
-                        <Tab label='Account' />
-                        <Tab disabled={this.props.loginSuccess} label='Data' />
-                        <Tab disabled={this.props.loginSuccess} label='User' />
+                        {/* <Tab label='Account' /> */}
+                        <Tab disabled={!this.props.loginSuccess} label='Data' />
+                        <Tab disabled={!this.props.loginSuccess} label='User' />
                     </Tabs>
+                    {this.state.value === 1 && <Data />}
+                    {this.state.value === 2 && <User />}
                 </AppBar>
-                {this.state.value === 0 && <Account />}
-                {this.state.value === 1 && <Data />}
-                {this.state.value === 2 && <User />}
-            </div>
-        );
+            )
+        }
     }
 }
 
