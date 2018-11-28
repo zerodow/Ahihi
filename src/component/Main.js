@@ -9,19 +9,19 @@ import { connect } from 'react-redux'
 
 class Main extends Component {
     state = {
-        value: 0
+        value: 3
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.loginSuccess) {
             this.setState({
-                value: 1
+                value: 0
             })
         }
     }
 
     render() {
-        if (this.state.value === 0) {
+        if (this.state.value === 3) {
             return <Account />
         } else {
             return (
@@ -31,8 +31,8 @@ class Main extends Component {
                         <Tab disabled={!this.props.loginSuccess} label='Data' />
                         <Tab disabled={!this.props.loginSuccess} label='User' />
                     </Tabs>
-                    {this.state.value === 1 && <Data />}
-                    {this.state.value === 2 && <User />}
+                    {this.state.value === 0 && <Data />}
+                    {this.state.value === 1 && <User />}
                 </AppBar>
             )
         }

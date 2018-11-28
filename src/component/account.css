@@ -5,10 +5,60 @@
   /* background-color: red; */
     /* background-color: brown; */
     /* margin-left: 2in */
+  };
+
+  .inputForm {
+    /* background-color: aqua; */
+    padding-left: 1in;
   }
 
-  .inputForm{
-    /* background-color: aqua; */
-    padding-left: 1in
+  .input {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #CFCFCF;
   }
-  
+
+  .wrap_input {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .wrap_button {
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .input_element {
+    width: 80%;
+    height: 50px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .button{
+    height: 50px;
+    background-color: #83C87A;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  .modal{
+    height: 50px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

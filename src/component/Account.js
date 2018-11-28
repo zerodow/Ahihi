@@ -3,22 +3,22 @@ import Input from '@material-ui/core/Input';
 import './account.css'
 import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            open: false,
+            click: false
         };
     }
 
-    componentDidMount() {
-        //this.login();
-    }
-
     login = () => {
+        this.handleOpen()
         var obj = {
             account: this.state.username,
             password: this.state.password
@@ -34,8 +34,8 @@ class Account extends Component {
             .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
             .then(res => { // res chính là dữ liệu đã được chuyển sang json
                 // console.log(res)
-                console.log(res)
                 if (res.loginCode === 0) {
+                    alert('Đăng nhập thành công')
                     this.props.dispatch({
                         type: 'LOGINSUCCESS',
                         user: res
@@ -45,57 +45,92 @@ class Account extends Component {
                 } else {
                     alert('Tài khoản không tồn tại')
                 }
+
+                this.setState({ open: false, click: false });
             })
-            .catch(error => console.log(error))
+            .catch(error => this.setState({ open: false, click: false }))
     }
+
+    handleOpen = () => {
+        this.setState({ open: true, click: true });
+    };
 
     render() {
         return (
-            <FormGroup style={{
-                backgroundSize: 'cover',
-                overflow: 'hidden',
-                backgroundColor: '#328ACB',
-                height: window.innerHeight,
-                width: window.innerWidth,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <FormGroup style={{
-                    backgroundColor: 'white',
-                    height: '50%',
-                    width: '30%',
-                }}>
+            <FormGroup style={styles.container}>
+                <FormGroup style={styles.formLogin}>
                     <FormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <h1>Login</h1>
+                        <h1 style={{ color: 'gray' }}>Project</h1>
                     </FormGroup>
-                    <FormGroup>
-                        <FormGroup row
-                            style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <h3>Username</h3>
+                    <FormGroup className='wrap_input'>
+                        <FormGroup className='input_element'>
                             <Input
+                                disabled={this.state.click}
+                                style={{ padding: 5, paddingLeft: 20 }}
+                                disableUnderline={true}
+                                className='input'
                                 required={true}
                                 placeholder='Tên đăng nhập'
-                                style={{ marginLeft: 20, height: '20%' }}
                                 onChange={(event) => this.setState({ username: event.target.value })} />
                         </FormGroup>
-                        <FormGroup row
-                            style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <h3>Password</h3>
+                        <FormGroup className='input_element'>
                             <Input
+                                disabled={this.state.click}
+                                type='password'
+                                style={{ padding: 5, paddingLeft: 20 }}
+                                disableUnderline={true}
+                                className='input'
                                 required={true}
                                 placeholder='Mật khẩu'
-                                style={{ marginLeft: 20 }}
                                 onChange={(event) => this.setState({ password: event.target.value })} />
                         </FormGroup>
                     </FormGroup>
-                    <FormGroup style={{ justifyContent: 'center', alignItems: 'center', }}>
-                        <Button style={{ height: 50, width: 100, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }} text={"Login"} onClick={this.login}>
-                            <h4>button</h4>
-                        </Button>
+                    <FormGroup className='wrap_button'>
+                        {this.state.click
+                            ? <CircularProgress />
+                            : <Button
+                                className='button'
+                                fullWidth={true}
+                                style={styles.button}
+                                text={"Login"}
+                                onClick={this.login}>
+                                <h3 style={{ color: 'white' }}>Đăng nhập</h3>
+                            </Button>}
                     </FormGroup>
                 </FormGroup>
             </FormGroup>
         );
+    }
+}
+
+const styles = {
+    container: {
+        backgroundSize: 'cover',
+        overflow: 'hidden',
+        backgroundColor: '#328ACB',
+        height: window.innerHeight,
+        width: window.innerWidth,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    formLogin: {
+        backgroundColor: 'white',
+        height: '40%',
+        width: '30%',
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    formInput: {
+        width: '80%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    button: {
+        height: 50, width: '100', backgroundColor: '#83C87A',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 }
 
