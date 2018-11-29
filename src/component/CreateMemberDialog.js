@@ -50,7 +50,7 @@ class CreateMemberDialog extends Component {
         userObj.email = this.email.state.value
         userObj.roleType = this.roleType.state.value
         console.log('save obj: ', userObj)
-        fetch('http://localhost:3001/updateUser', {//link api
+        fetch('https://farmproject.herokuapp.com/updateUser', {//link api
             method: 'POST',
             headers: {
                 Accept: 'application/json',

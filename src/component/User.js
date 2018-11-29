@@ -88,7 +88,7 @@ class User extends Component {
     }
 
     getAllUser(){
-        fetch('http://localhost:3001/get-all-users', {//link api
+        fetch('https://farmproject.herokuapp.com/get-all-users', {//link api
             method: 'GET',
             headers: {
                 Accept: 'application/json',

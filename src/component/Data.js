@@ -41,7 +41,7 @@ class Data extends Component {
      * Hàm này sẽ chạy sau khi render giao diện lần đầu tiên 
      */
     componentDidMount() {
-        fetch('http://localhost:3001/saveSensers', {//link api
+        fetch('https://farmproject.herokuapp.com/saveSensers', {//link api
             method: 'POST', //method
             headers: { // config header
                 Accept: 'application/json',
@@ -54,6 +54,8 @@ class Data extends Component {
                 // this.setState({
                 //     data: res // dữ liệu trả về sẽ được gán cho state có tên data để hiển thị lên list
                 // })
+
+                console.log(res.data)
                 console.log('oki')
             })
             .catch(error => console.log(error))
