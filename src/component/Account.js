@@ -88,14 +88,12 @@ class Account extends Component {
                     <FormGroup className='wrap_button'>
                         {this.state.click
                             ? <CircularProgress />
-                            : <Button
-                                className='button'
-                                fullWidth={true}
-                                style={styles.button}
-                                text={"Login"}
-                                onClick={this.login}>
-                                <h3 style={{ color: 'white' }}>Đăng nhập</h3>
-                            </Button>}
+                            : <Button variant="contained" className='button' style={{ backgroundColor: '#83C87A', color: 'white' }}
+                                onClick={() => this.login()}
+                            >
+                                Đăng nhập
+                          </Button>
+                        }
                     </FormGroup>
                 </FormGroup>
             </FormGroup>

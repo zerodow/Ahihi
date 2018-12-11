@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 class Main extends Component {
     state = {
-        value: 3
+        value: 0
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,11 +25,11 @@ class Main extends Component {
             return <Account />
         } else {
             return (
-                <AppBar>
+                <AppBar position='static'>
                     <Tabs value={this.state.value} onChange={(event, value) => this.setState({ value })}>
                         {/* <Tab label='Account' /> */}
-                        <Tab disabled={!this.props.loginSuccess} label='Data' />
-                        <Tab disabled={!this.props.loginSuccess} label='User' />
+                        <Tab disabled={this.props.loginSuccess} label='Data' />
+                        <Tab disabled={this.props.loginSuccess} label='User' />
                     </Tabs>
                     {this.state.value === 0 && <Data />}
                     {this.state.value === 1 && <User />}
