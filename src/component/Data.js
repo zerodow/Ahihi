@@ -186,7 +186,7 @@ class Data extends Component {
 
     renderTable() {
         return (
-            <Grid>
+            <Grid style={{ justifyContent: 'center' }}>
                 {this.renderGroupsInput()}
                 {this.renderData()}
             </Grid>
@@ -205,7 +205,7 @@ class Data extends Component {
                 <Grid style={{ flex: 2, }}>
                     {this.renderTable()}
                 </Grid>
-                <Grid style={{ flex: 1, backgroundColor: 'pink', paddingLeft: 10 }}>
+                <Grid style={{ flex: 1, paddingLeft: 10, paddingTop: 30 }}>
                     <LineChart data={chart} width={window.innerWidth / 3 - 40} height="250" />
                 </Grid>
             </FormGroup>
