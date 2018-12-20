@@ -7,11 +7,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
-import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import './data.css'
+import InputField from './InputField';
+import { getData, getAllSensor } from '../api'
+import { GET_SENSER_BY_FARM_ID, GET_SENSER_BY_DEVICE_ID } from '../api/const';
 
 const LineChart = require("react-chartjs").Line;
 var chart = {
@@ -40,57 +42,56 @@ var chart = {
     ]
 };
 
-const data = {
-    message_id: "1",
-    timestamp: "2",
-    farm_id: "3",
-    device_id: "4",
-    node_id: "5",
-    sensors_data: [
-        {
-            sensor_id: "1",
-            sensor_name: "ahihi",
-            sensor_value: "1996"
-        },
-        {
-            sensor_id: "2",
-            sensor_name: "êhhe",
-            sensor_value: "2000"
-        },
-        {
-            sensor_id: "3",
-            sensor_name: "ahaha",
-            sensor_value: "2001"
-        }
-    ]
-}
-
 class Data extends Component {
-    state = {
-        data: data
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            page: 1
+        }
+
+        this.handleScroll = this.handleScroll.bind(this)
+    }
+
+    getAll() {
+        getAllSensor('get-sensers', this.state.page,
+            (res) => {
+                console.log(Object.assign(this.state.data, res))
+                this.setState({ data: Object.assign(this.state.data, res) })
+            },
+            (error) => console.log(error)
+        )
     }
     /**
      * Hàm này sẽ chạy sau khi render giao diện lần đầu tiên 
      */
     componentDidMount() {
-        fetch('https://farmproject.herokuapp.com/saveSensers', {//link api
-            method: 'POST', //method
-            headers: { // config header
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json()) // data trả về ngay lập tức chuyển sang json
-            .then(res => { // res chính là dữ liệu đã được chuyển sang json
-                // this.setState({
-                //     data: res // dữ liệu trả về sẽ được gán cho state có tên data để hiển thị lên list
-                // })
+        this.getAll()
+    }
 
-                // console.log(res.data)
-                console.log('oki')
-            })
-            .catch(error => console.log(error))
+    handleScroll = (event) => {
+        if (window.scrollY > window.innerHeight / 2) {
+            console.log(true)
+            this.setState({ page: 2 }, () => this.getAll())
+
+        }
+    }
+
+    componentWillMount() {
+        window.addEventListener('scroll', this.handleScroll)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll)
+    }
+
+    getData(data) {
+        if (data) {
+            this.setState({ data })
+        } else {
+            alert('No invalid data')
+            this.getAll()
+        }
     }
 
     renderGroupsInput() {
@@ -98,40 +99,18 @@ class Data extends Component {
             <Grid style={{ flexDirection: 'row' }}>
                 <FormGroup row>
                     <FormGroup className='input_element'>
-                        <Input
-                            style={{ padding: 5, paddingLeft: 20 }}
-                            disableUnderline={true}
-                            className='input'
-                            required={true}
-                            placeholder='Nhập farm id'
-                            onChange={(event) => this.setState({ farm_id: event.target.value })} />
+                        <InputField
+                            placeholder={'Nhập farm id'}
+                            onHandleInput={(data) => this.getData(data)}
+                            type={GET_SENSER_BY_FARM_ID}
+                        />
                     </FormGroup>
                     <FormGroup className='input_element'>
-                        <Input
-                            style={{ padding: 5, paddingLeft: 20 }}
-                            disableUnderline={true}
-                            className='input'
-                            required={true}
-                            placeholder='Nhập device id'
-                            onChange={(event) => this.setState({ device_id: event.target.value })} />
-                    </FormGroup>
-                    <FormGroup className='input_element'>
-                        <Input
-                            style={{ padding: 5, paddingLeft: 20 }}
-                            disableUnderline={true}
-                            className='input'
-                            required={true}
-                            placeholder='Nhập node id'
-                            onChange={(event) => this.setState({ node_id: event.target.value })} />
-                    </FormGroup>
-                    <FormGroup className='input_element'>
-                        <Input
-                            style={{ padding: 5, paddingLeft: 20 }}
-                            disableUnderline={true}
-                            className='input'
-                            required={true}
-                            placeholder='Nhập sensor name'
-                            onChange={(event) => this.setState({ sensor_name: event.target.value })} />
+                        <InputField
+                            placeholder={'Nhập device id'}
+                            onHandleInput={(data) => this.getData(data)}
+                            type={GET_SENSER_BY_DEVICE_ID}
+                        />
                     </FormGroup>
                     <FormGroup className='input_element'>
                         <Button
@@ -141,7 +120,7 @@ class Data extends Component {
                             onClick={() => this.login()}
                         >
                             Tìm kiếm
-              </Button>
+                        </Button>
                     </FormGroup>
                 </FormGroup>
             </Grid>
@@ -158,21 +137,19 @@ class Data extends Component {
                             <TableRow>
                                 <TableCell>Farm id</TableCell>
                                 <TableCell>Device id</TableCell>
-                                <TableCell>Node_id</TableCell>
                                 <TableCell>Sensor id</TableCell>
                                 <TableCell>Sensor name</TableCell>
                                 <TableCell>Sensor value</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            {this.state.data.sensors_data.map(row => {
+                            {this.state.data.map(row => {
                                 return (
-                                    <TableRow>
+                                    <TableRow key={row.id}>
+                                        <TableCell>{row.farm_id}</TableCell>
+                                        <TableCell>{row.device_id}</TableCell>
                                         <TableCell>{row.sensor_id}</TableCell>
                                         <TableCell>{row.sensor_name}</TableCell>
-                                        <TableCell>{row.sensor_value}</TableCell>
-                                        <TableCell>{row.sensor_value}</TableCell>
-                                        <TableCell>{row.sensor_value}</TableCell>
                                         <TableCell>{row.sensor_value}</TableCell>
                                     </TableRow>
                                 );
@@ -205,9 +182,9 @@ class Data extends Component {
                 <Grid style={{ flex: 2, }}>
                     {this.renderTable()}
                 </Grid>
-                <Grid style={{ flex: 1, paddingLeft: 10, paddingTop: 30 }}>
+                {/* <Grid style={{ flex: 1, paddingLeft: 10, paddingTop: 30 }}>
                     <LineChart data={chart} width={window.innerWidth / 3 - 40} height="250" />
-                </Grid>
+                </Grid> */}
             </FormGroup>
         );
     }
