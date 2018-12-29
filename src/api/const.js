@@ -3,3 +3,7 @@ export const GET = 'GET'
 export const POST = 'POST'
 export const GET_SENSER_BY_FARM_ID = "get-senser-by-farm-id"
 export const GET_SENSER_BY_DEVICE_ID  = "get-senser-by-device-id"
+export const PH_SENSOR = 'pHSensor??'
+export const TEMP_SENSOR = 'tempSensor??'
+export const HUMI_SENSOR = 'humiSensor??'
+export const TDS_SENSOR = 'TDSSensor??'

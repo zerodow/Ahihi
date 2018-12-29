@@ -6,16 +6,17 @@ import { getData } from '../api'
 export default class InputField extends Component {
     handleInputChange(value) {
         const { type } = this.props
-        if(value || value !== ''){
-            getData(type, value,
-                (res) => {
-                    this.props.onHandleInput(res)
-                },
-                (error) => {
-                    console.log('error', error)
-                }
-            )
-        }  
+        if (value || value !== '') {
+            this.props.onHandleInput(value, type)
+            // getData(type, value,
+            //     (res) => {
+            //         this.props.onHandleInput(res, value, type)
+            //     },
+            //     (error) => {
+            //         console.log('error', error)
+            //     }
+            // )
+        }
     }
 
     render() {
