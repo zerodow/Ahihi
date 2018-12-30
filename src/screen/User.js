@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
-import CreateMemberDialog from './CreateMemberDialog';
+import CreateMemberDialog from '../component/CreateMemberDialog';
 
 class User extends Component {
     constructor(props) {

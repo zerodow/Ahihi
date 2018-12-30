@@ -1,0 +1,60 @@
+.account {
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  /* background-color: red; */
+    /* background-color: brown; */
+    /* margin-left: 2in */
+  };
+
+  .inputForm {
+    /* background-color: aqua; */
+    padding-left: 1in;
+  }
+
+  .input {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #CFCFCF;
+  }
+
+  .wrap_input {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .wrap_button {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 10px;
+  }
+
+  .input_element {
+    width: 60%;
+    height: 50px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .button{
+    background-color: #83C87A;
+  }
+
+  .modal{
+    height: 50px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

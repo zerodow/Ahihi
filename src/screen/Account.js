@@ -35,7 +35,7 @@ class Account extends Component {
             .then(res => { // res chính là dữ liệu đã được chuyển sang json
                 // console.log(res)
                 if (res.loginCode === 0) {
-                    alert('Đăng nhập thành công')
+                    // alert('Đăng nhập thành công')
                     this.props.dispatch({
                         type: 'LOGINSUCCESS',
                         user: res
@@ -63,7 +63,7 @@ class Account extends Component {
                         <h1 style={{ color: 'gray' }}>Project</h1>
                     </FormGroup>
                     <FormGroup className='wrap_input'>
-                        <FormGroup className='input_element'>
+                        <FormGroup className='input_element' style={{ width: '60%' }}>
                             <Input
                                 disabled={this.state.click}
                                 style={{ padding: 5, paddingLeft: 20 }}
@@ -73,7 +73,7 @@ class Account extends Component {
                                 placeholder='Tên đăng nhập'
                                 onChange={(event) => this.setState({ username: event.target.value })} />
                         </FormGroup>
-                        <FormGroup className='input_element'>
+                        <FormGroup className='input_element' style={{ width: '60%' }}>
                             <Input
                                 disabled={this.state.click}
                                 type='password'
@@ -88,7 +88,7 @@ class Account extends Component {
                     <FormGroup className='wrap_button'>
                         {this.state.click
                             ? <CircularProgress />
-                            : <Button variant="contained" className='button' style={{ backgroundColor: '#83C87A', color: 'white' }}
+                            : <Button variant="contained" className='button' style={{ backgroundColor: '#83C87A', color: 'white', width: '60%' }}
                                 onClick={() => this.login()}
                             >
                                 Đăng nhập

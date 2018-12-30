@@ -13,15 +13,26 @@ export default class Chart extends Component {
         };
     }
 
+    convert(data) {
+        return `${new Date(parseFloat(data)).getDay()}/${new Date(parseFloat(data)).getMonth()}`
+    }
+
     componentDidMount() {
         const { type, data } = this.props
 
         let arr = data.filter(item => item.sensor_name == type)
-        
+
         let result = arr.map(item => item.sensor_value)
 
+        let resultTime = arr.map(item => this.convert(item.createDate))
+        console.log(resultTime)
+
+        // let time = arr[0].createDate
+
+        // let ahihi = new Date(parseFloat(time))
+        // console.log('date', ahihi)
         var chart = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: resultTime,
             datasets: [
                 {
                     label: "My First dataset",
@@ -37,6 +48,42 @@ export default class Chart extends Component {
         };
 
         this.setState({ dataChart: chart, isLoadChart: false })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps', nextProps)
+        if (nextProps && nextProps.type && nextProps.data) {
+            const { type, data } = nextProps
+
+            let arr = data.filter(item => item.sensor_name == type)
+
+            let result = arr.map(item => item.sensor_value)
+
+            let resultTime = arr.map(item => this.convert(item.createDate))
+
+            // let time = arr[0].createDate
+
+            // let ahihi = new Date(parseFloat(time))
+            // console.log('date', ahihi)
+            var chart = {
+                labels: resultTime,
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: result
+                    },
+                ]
+            };
+
+            this.setState({ dataChart: chart, isLoadChart: false })
+        }
+
     }
 
     render() {
