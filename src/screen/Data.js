@@ -145,7 +145,7 @@ class Data extends Component {
                             <Button
                                 variant="contained"
                                 className='button'
-                                style={{ backgroundColor: 'white', color: 'green', width: '10%' }}
+                                style={{ backgroundColor: 'white', color: 'green', width: '20%' }}
                                 onClick={() => this.loadMore()}
                             >
                                 Load more
@@ -192,7 +192,7 @@ class Data extends Component {
                         direction="row"
                         justify="center"
                         alignItems="center">
-                        <CircularProgress size={20}/>
+                        <CircularProgress size={20} />
                     </Grid>
                     : this.renderData()
                 }
