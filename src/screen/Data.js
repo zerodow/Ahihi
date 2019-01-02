@@ -39,6 +39,22 @@ class Data extends Component {
         )
     }
 
+    handleData(res) {
+        let arr = res.map(item => {
+            let time = new Date(parseFloat(item.createDate))
+            let newTime = `${time.getHours()}:${time.getUTCMinutes() < 10 ? "0" + time.getUTCMinutes() : time.getUTCMinutes()}  ${time.getDate()}/${time.getUTCMonth() + 1}/${time.getFullYear()}`
+            let name = item.sensor_name
+            let newName = name.slice(0, name.toString().length - 2)
+            return {
+                ...item,
+                createDate: newTime,
+                sensor_name: newName
+            }
+        })
+
+        return arr
+    }
+
     /**
      * Hàm này sẽ chạy sau khi render giao diện lần đầu tiên 
      */
@@ -65,8 +81,6 @@ class Data extends Component {
     loadMore() {
         this.setState({ isLoadMore: true })
         const { device_id, farm_id } = this.state
-        console.log('devuce', device_id)
-        console.log('farm_id', farm_id)
         if (device_id == '' && farm_id == '') {
             console.log('1')
             getAllSensor('get-sensers', this.state.page + 1,
@@ -97,6 +111,16 @@ class Data extends Component {
         }
     }
 
+    handleName(name) {
+        return name.slice(0, name.toString().length - 2)
+    }
+
+    handleTime(time) {
+        let newTime = new Date(parseFloat(time))
+
+        return `${newTime.getHours()}:${newTime.getUTCMinutes() < 10 ? "0" + newTime.getUTCMinutes() : newTime.getUTCMinutes()}  ${newTime.getDate()}/${newTime.getUTCMonth() + 1}/${newTime.getFullYear()}`
+    }
+
     renderData() {
         return (
             <Grid style={{ padding: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -106,7 +130,7 @@ class Data extends Component {
                             <TableRow>
                                 <TableCell>Farm id</TableCell>
                                 <TableCell>Device id</TableCell>
-                                <TableCell>Sensor id</TableCell>
+                                <TableCell>Time</TableCell>
                                 <TableCell>Sensor name</TableCell>
                                 <TableCell>Sensor value</TableCell>
                             </TableRow>
@@ -117,9 +141,9 @@ class Data extends Component {
                                     <TableRow key={row.id}>
                                         <TableCell>{row.farm_id}</TableCell>
                                         <TableCell>{row.device_id}</TableCell>
-                                        <TableCell>{row.sensor_id}</TableCell>
-                                        <TableCell>{row.sensor_name}</TableCell>
-                                        <TableCell>{row.sensor_value}</TableCell>
+                                        <TableCell>{this.handleTime(row.createDate)}</TableCell>
+                                        <TableCell>{this.handleName(row.sensor_name)}</TableCell>
+                                        <TableCell>{Math.floor(row.sensor_value * 10) / 10}</TableCell>
                                     </TableRow>
                                 );
                             })}

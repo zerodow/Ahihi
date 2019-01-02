@@ -14,7 +14,7 @@ export default class Chart extends Component {
     }
 
     convert(data) {
-        return `${new Date(parseFloat(data)).getDay()}/${new Date(parseFloat(data)).getMonth()}`
+        return `${new Date(parseFloat(data)).getDate()}/${new Date(parseFloat(data)).getMonth()+1}`
     }
 
     componentDidMount() {
