@@ -37,11 +37,19 @@ class User extends Component {
                             </TableHead>
                             <TableBody style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {this.state.users.map((user, key) => {
+                                    let roleName = '';
+                                    if(user.roleType == 0){
+                                        roleName = 'Admin';
+                                    } else  if(user.roleType == 1){
+                                        roleName = "Quản lí";
+                                    } else  if(user.roleType == 2){
+                                        roleName = "Người dùng";
+                                    }
                                     return (
                                         <TableRow key={key}>
                                             <TableCell>{user.account}</TableCell>
                                             <TableCell>{user.email}</TableCell>
-                                            <TableCell>{user.roleType}</TableCell>
+                                            <TableCell>{roleName}</TableCell>
                                             <TableCell onClick={() => this.updateMember(user)}>Sửa</TableCell>
                                         </TableRow>
                                     );
