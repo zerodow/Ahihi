@@ -11,31 +11,8 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <div>
-        {/* <ul> */}
-        {/* <li> */}
-        {/* <Link to="/">Main</Link> */}
-        {/* </li> */}
-        {/* <li>
-          <Link to="/homepage">HomePage</Link>
-        </li>
-        <li>
-          <Link to="/account">Account</Link>
-        </li>
-        <li>
-          <Link to="/nav">Nav</Link>
-        </li>
-        <li>
-          <Link to="/transaction">Transaction</Link>
-        </li> */}
-        {/* </ul> */}
-
-        {/* <hr /> */}
-
+        {/* gọi component Main */}
         <Route exact path="/" component={Main} />
-        {/* <Route path="/homepage" component={HomePage} />
-      <Route path="/nav" component={Nav} />
-      <Route path="/account" component={Account} />
-      <Route path="/transaction" component={Transaction} /> */}
       </div>
     </Router>
   </Provider>

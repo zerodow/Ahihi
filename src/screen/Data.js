@@ -29,6 +29,7 @@ class Data extends Component {
         }
     }
 
+    //lấy dữ liệu
     getAll() {
         getAllSensor('get-sensers', this.state.page,
             (res) => {
@@ -39,6 +40,7 @@ class Data extends Component {
         )
     }
 
+    //xử lý dữ liệu trả về danh sách mong muốn
     handleData(res) {
         let arr = res.map(item => {
             let time = new Date(parseFloat(item.createDate))
@@ -62,6 +64,7 @@ class Data extends Component {
         this.getAll()
     }
 
+    //search 
     getData(type, value) {
         getData(type, value, 1,
             (res) => {
@@ -78,49 +81,47 @@ class Data extends Component {
             })
     }
 
+    //xử lý load more
     loadMore() {
         this.setState({ isLoadMore: true })
         const { device_id, farm_id } = this.state
         if (device_id == '' && farm_id == '') {
-            console.log('1')
             getAllSensor('get-sensers', this.state.page + 1,
                 (res) => {
-                    console.log(res)
-                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false })
+                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false },()=>console.log(this.state.data))
                 },
                 (error) => this.setState({ isLoadMore: false })
             )
         } else if (device_id !== '' && device_id) {
-            console.log('2')
             getData(GET_SENSER_BY_DEVICE_ID, device_id, this.state.page + 1,
                 (res) => {
-                    console.log(res)
-                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false })
+                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false },()=>console.log(this.state.data))
                 },
                 (error) => this.setState({ isLoadMore: false })
             )
         } else {
-            console.log('3')
             getData(GET_SENSER_BY_FARM_ID, farm_id, this.state.page + 1,
                 (res) => {
-                    console.log(res)
-                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false })
+                    this.setState({ data: this.state.data.concat(res), isLoading: false, page: this.state.page + 1, isLoadMore: false },()=>console.log(this.state.data))
                 },
                 (error) => this.setState({ isLoadMore: false })
             )
         }
     }
 
+    //xử lý tên
     handleName(name) {
         return name.slice(0, name.toString().length - 2)
     }
 
+    //xử lý time
     handleTime(time) {
         let newTime = new Date(parseFloat(time))
 
         return `${newTime.getHours()}:${newTime.getUTCMinutes() < 10 ? "0" + newTime.getUTCMinutes() : newTime.getUTCMinutes()}  ${newTime.getDate()}/${newTime.getUTCMonth() + 1}/${newTime.getFullYear()}`
     }
 
+    //render table
     renderData() {
         return (
             <Grid style={{ padding: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -190,6 +191,7 @@ class Data extends Component {
         )
     }
 
+    //xử lý button clear
     clear() {
         this.setState({
             page: 1,
@@ -200,6 +202,7 @@ class Data extends Component {
         this.getAll()
     }
 
+    //render khung hiển thị dữ liệu
     renderTable() {
         return (
             <Grid style={{ justifyContent: 'center' }}>
@@ -224,6 +227,7 @@ class Data extends Component {
         )
     }
 
+    //render chart
     renderChart() {
         if (this.state.data && this.state.data.length !== 0) {
             return (
@@ -282,6 +286,7 @@ class Data extends Component {
         }
     }
 
+    //render chính
     render() {
         return (
             <FormGroup style={styles.container} row>
@@ -296,10 +301,10 @@ class Data extends Component {
     }
 }
 
+//css
 const styles = {
     container: {
         width: window.innerWidth,
-        // height: window.innerHeight,
         backgroundColor: 'white'
     }
 }

@@ -13,6 +13,7 @@ class Main extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        //nếu đăng nhập thành công sẽ chuyển sang tab
         if (nextProps.loginSuccess) {
             this.setState({
                 value: 0
@@ -21,13 +22,14 @@ class Main extends Component {
     }
 
     render() {
+        //đầu tiên hiển thị màn hình account
         if (this.state.value === 3) {
             return <Account />
         } else {
+            // this.state.value === 0
             return (
                 <AppBar position='static'>
                     <Tabs value={this.state.value} onChange={(event, value) => this.setState({ value })}>
-                        {/* <Tab label='Account' /> */}
                         <Tab disabled={!this.props.loginSuccess} label='Data' />
                         <Tab disabled={!this.props.loginSuccess} label='User' />
                     </Tabs>

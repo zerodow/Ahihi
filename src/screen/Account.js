@@ -60,7 +60,7 @@ class Account extends Component {
             <FormGroup style={styles.container}>
                 <FormGroup style={styles.formLogin}>
                     <FormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <h1 style={{ color: 'gray' }}>Project</h1>
+                        <h1 style={{ color: 'gray' }}>Farm Project</h1>
                     </FormGroup>
                     <FormGroup className='wrap_input'>
                         <FormGroup className='input_element' style={{ width: '60%' }}>
